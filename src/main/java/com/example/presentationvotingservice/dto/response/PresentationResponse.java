@@ -21,12 +21,12 @@ public class PresentationResponse {
     @Schema(name = "description", description = "Presentation description", required = true, example = "Java in action")
     private String description;
 
-    @Schema(name = "creationTime", description = "Presentation creationTime", required = true, example = "2022-01-31")
+    @Schema(name = "creationTime", description = "Presentation creationTime", required = true, example = "2022-01-31 14:05:55")
     private String creationTime;
 
-    @Schema(name = "startTime", description = "Presentation startTime", required = true, example = "2022-05-31")
+    @Schema(name = "startTime", description = "Presentation startTime", required = true, example = "2022-05-31 14:05:55")
     private String startTime;
 
-    @Schema(name = "authorLogin", description = "Presentation author", required = true, example = "xx@xxx.com")
+    @Schema(name = "authorLogin", description = "Presentation author's Login", required = true, example = "xx@xxx.com")
     private String authorLogin;
 }

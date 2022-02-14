@@ -1,4 +1,4 @@
-package com.example.presentationvotingservice.model;
+package com.example.presentationvotingservice.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,16 +19,21 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name="first_name")
+    @Column(name="first_name", columnDefinition = "varchar(64) not null")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name="last_name", columnDefinition = "varchar(64)")
     private String lastName;
 
+    @Column(columnDefinition = "varchar(64) not null")
     private String login;
 
+    @Column(columnDefinition = "varchar(64) not null default '123456'")
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "client")
     private List<Presentation> presentations;
+
+    @OneToMany(mappedBy = "client")
+    private List<Vote> votes;
 }

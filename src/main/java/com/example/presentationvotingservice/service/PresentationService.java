@@ -1,8 +1,8 @@
 package com.example.presentationvotingservice.service;
 
 import com.example.presentationvotingservice.dto.request.PresentationRequest;
-import com.example.presentationvotingservice.model.Presentation;
-import com.example.presentationvotingservice.model.Client;
+import com.example.presentationvotingservice.entity.Presentation;
+import com.example.presentationvotingservice.entity.Client;
 import com.example.presentationvotingservice.repository.PresentationRepository;
 import com.example.presentationvotingservice.repository.ClientRepository;
 import org.springframework.stereotype.Service;
@@ -31,6 +31,10 @@ public class PresentationService {
         return presentationRepository.getById(id);
     }
 
+    public Presentation getByName(String name) {
+        return presentationRepository.getByName(name);
+    }
+
     @Transactional
     public Presentation create(PresentationRequest presentationRequest) {
         String authorLogin = presentationRequest.getAuthorLogin();
@@ -38,9 +42,7 @@ public class PresentationService {
         if (client == null) {
             client = clientRepository.save(Client.builder()
                     .firstName(authorLogin)
-                    .lastName(authorLogin)
                     .login(authorLogin)
-                    .password(authorLogin)
                     .build());
         }
         return presentationRepository.save(Presentation.builder()

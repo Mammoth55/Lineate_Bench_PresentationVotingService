@@ -1,10 +1,11 @@
 package com.example.presentationvotingservice.service;
 
-import com.example.presentationvotingservice.dto.request.UserRequest;
-import com.example.presentationvotingservice.model.Client;
+import com.example.presentationvotingservice.dto.request.ClientRequest;
+import com.example.presentationvotingservice.entity.Client;
 import com.example.presentationvotingservice.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -28,7 +29,8 @@ public class ClientService {
         return clientRepository.getByLogin(login);
     }
 
-    public Client create(UserRequest request) {
+    @Transactional
+    public Client create(ClientRequest request) {
         return clientRepository.save(Client.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())

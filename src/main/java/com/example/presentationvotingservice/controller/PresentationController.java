@@ -1,17 +1,11 @@
 package com.example.presentationvotingservice.controller;
 
-import com.example.presentationvotingservice.dto.response.PresentationResponse;
-import com.example.presentationvotingservice.dto.response.UserResponse;
 import com.example.presentationvotingservice.dto.request.PresentationRequest;
-import com.example.presentationvotingservice.model.Presentation;
+import com.example.presentationvotingservice.dto.response.PresentationResponse;
+import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.service.PresentationService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,21 +24,26 @@ public class PresentationController {
     @GetMapping("/")
     public ResponseEntity<List<PresentationResponse>> getAll() {
         return ResponseEntity.ok().body(presentationService.getAll().stream()
-                .map(this::convertToDto)
+                .map(this::convertPresentationToDto)
                 .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id:[\\d]+}")
     public ResponseEntity<PresentationResponse> getById(@PathVariable(ID) long id) {
-        return ResponseEntity.ok().body(convertToDto(presentationService.getById(id)));
+        return ResponseEntity.ok().body(convertPresentationToDto(presentationService.getById(id)));
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<PresentationResponse> getByName(@RequestParam(name = "name", required = false) String name) {
+        return ResponseEntity.ok().body(convertPresentationToDto(presentationService.getByName(name)));
     }
 
     @PostMapping("/")
     public ResponseEntity<PresentationResponse> create(@RequestBody PresentationRequest request) {
-        return ResponseEntity.ok().body(convertToDto(presentationService.create(request)));
+        return ResponseEntity.ok().body(convertPresentationToDto(presentationService.create(request)));
     }
 
-    private PresentationResponse convertToDto(Presentation presentation) {
+    private PresentationResponse convertPresentationToDto(Presentation presentation) {
         return PresentationResponse.builder()
                 .id(presentation.getId())
                 .name(presentation.getName())
