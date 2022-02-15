@@ -4,7 +4,6 @@ import com.example.presentationvotingservice.dto.request.PresentationRequest;
 import com.example.presentationvotingservice.dto.response.PresentationResponse;
 import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.service.PresentationService;
-import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +44,7 @@ public class PresentationController {
     }
 
     private PresentationResponse convertPresentationToDto(Presentation presentation) {
-        val startTime = presentation.getStartTime();
+        var startTime = presentation.getStartTime();
         return PresentationResponse.builder()
                 .id(presentation.getId())
                 .name(presentation.getName())

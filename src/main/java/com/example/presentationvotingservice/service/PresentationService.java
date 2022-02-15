@@ -1,17 +1,14 @@
 package com.example.presentationvotingservice.service;
 
 import com.example.presentationvotingservice.dto.request.PresentationRequest;
-import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.entity.Client;
+import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.model.PresentationStatus;
-import com.example.presentationvotingservice.repository.PresentationRepository;
 import com.example.presentationvotingservice.repository.ClientRepository;
-import lombok.val;
-import org.apache.commons.lang3.StringUtils;
+import com.example.presentationvotingservice.repository.PresentationRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
