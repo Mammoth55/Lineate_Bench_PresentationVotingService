@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -24,6 +25,7 @@ public class Vote {
     @Column(name="vote_status", columnDefinition = "varchar(64) not null default 'NOT_INTERESTED'")
     private VoteStatus voteStatus;
 
+    @CreationTimestamp
     @Column(name="vote_time", columnDefinition = "timestamp with time zone not null default now()")
     private ZonedDateTime voteTime;
 

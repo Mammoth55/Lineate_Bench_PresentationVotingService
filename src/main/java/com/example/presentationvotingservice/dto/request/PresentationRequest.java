@@ -13,9 +13,5 @@ public class PresentationRequest {
 
     private String description;
 
-    private String creationTime;
-
-    private String startTime;
-
     private String authorLogin;
 }

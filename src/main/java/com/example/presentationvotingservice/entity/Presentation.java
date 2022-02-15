@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -31,6 +33,7 @@ public class Presentation {
     @Column(columnDefinition = "varchar(64) not null default 'CREATED'")
     private PresentationStatus status;
 
+    @CreationTimestamp
     @Column(name="creation_time", columnDefinition = "timestamp with time zone not null default now()")
     private ZonedDateTime creationTime;
 

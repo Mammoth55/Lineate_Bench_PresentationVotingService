@@ -50,6 +50,7 @@ public class PresentationController {
                 .id(presentation.getId())
                 .name(presentation.getName())
                 .description(presentation.getDescription())
+                .status(presentation.getStatus().name())
                 .creationTime(presentation.getCreationTime().toString())
                 .startTime(startTime == null ? "" : startTime.toString())
                 .authorLogin(presentation.getClient().getLogin())

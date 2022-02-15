@@ -21,6 +21,9 @@ public class PresentationResponse {
     @Schema(name = "description", description = "Presentation description", required = true, example = "Java in action")
     private String description;
 
+    @Schema(name = "status", description = "Presentation status", required = true, example = "CREATED")
+    private String status;
+
     @Schema(name = "creationTime", description = "Presentation creationTime", required = true, example = "2022-01-31 14:05:55")
     private String creationTime;
 
