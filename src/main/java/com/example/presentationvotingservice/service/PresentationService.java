@@ -5,6 +5,8 @@ import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.entity.Client;
 import com.example.presentationvotingservice.repository.PresentationRepository;
 import com.example.presentationvotingservice.repository.ClientRepository;
+import lombok.val;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,12 +47,13 @@ public class PresentationService {
                     .login(authorLogin)
                     .build());
         }
+        val startTime = presentationRequest.getStartTime();
         return presentationRepository.save(Presentation.builder()
                 .name(presentationRequest.getName())
                 .description(presentationRequest.getDescription())
                 .creationTime(ZonedDateTime.parse(presentationRequest.getCreationTime()))
-                .startTime(ZonedDateTime.parse(presentationRequest.getStartTime()))
-                .author(client)
+                .startTime(startTime == null || StringUtils.isBlank(startTime) ? null : ZonedDateTime.parse(startTime))
+                .client(client)
                 .build());
     }
 }

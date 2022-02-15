@@ -27,11 +27,11 @@ public class Vote {
     @Column(name="vote_time", columnDefinition = "timestamp with time zone not null default now()")
     private ZonedDateTime voteTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "presentation_id", nullable = false)
     private Presentation presentation;
 }
