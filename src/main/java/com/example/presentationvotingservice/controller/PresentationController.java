@@ -34,13 +34,18 @@ public class PresentationController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<PresentationResponse> getByName(@RequestParam(name = "name", required = false) String name) {
+    public ResponseEntity<PresentationResponse> getByName(@RequestParam(name = "name") String name) {
         return ResponseEntity.ok().body(convertPresentationToDto(presentationService.getByName(name)));
     }
 
     @PostMapping("/")
     public ResponseEntity<PresentationResponse> create(@RequestBody PresentationRequest request) {
         return ResponseEntity.ok().body(convertPresentationToDto(presentationService.create(request)));
+    }
+
+    @GetMapping("/publish")
+    public ResponseEntity<PresentationResponse> publishByName(@RequestParam(name = "name") String name) {
+        return ResponseEntity.ok().body(convertPresentationToDto(presentationService.publishByName(name)));
     }
 
     private PresentationResponse convertPresentationToDto(Presentation presentation) {
