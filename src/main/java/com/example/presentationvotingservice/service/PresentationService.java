@@ -1,6 +1,7 @@
 package com.example.presentationvotingservice.service;
 
 import com.example.presentationvotingservice.dto.request.PresentationRequest;
+import com.example.presentationvotingservice.dto.response.PresentationResponse;
 import com.example.presentationvotingservice.entity.Client;
 import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.model.PresentationStatus;
@@ -25,6 +26,10 @@ public class PresentationService {
 
     public List<Presentation> getAll() {
         return presentationRepository.findAll();
+    }
+
+    public List<Presentation> getAllPublished() {
+        return presentationRepository.getAllByStatus(PresentationStatus.PUBLISHED);
     }
 
     public Presentation getById(long id) {

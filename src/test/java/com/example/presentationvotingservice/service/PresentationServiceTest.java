@@ -38,7 +38,7 @@ public class PresentationServiceTest {
             .id(8L)
             .name(TEST_PRESENTATION1_NAME)
             .description(TEST_PRESENTATION1_NAME + " in action")
-            .status(PresentationStatus.CREATED)
+            .status(PresentationStatus.PUBLISHED)
             .creationTime(ZonedDateTime.now())
             .client(TEST_CLIENT)
             .build();
@@ -46,7 +46,7 @@ public class PresentationServiceTest {
             .id(9L)
             .name(TEST_PRESENTATION2_NAME)
             .description(TEST_PRESENTATION2_NAME + " in action")
-            .status(PresentationStatus.CREATED)
+            .status(PresentationStatus.PUBLISHED)
             .creationTime(ZonedDateTime.now())
             .client(TEST_CLIENT)
             .build();
@@ -70,6 +70,18 @@ public class PresentationServiceTest {
         when(presentationRepository.findAll()).thenReturn(presentations);
 
         List<Presentation> actual = presentationService.getAll();
+
+        assertEquals(actual.size(), 2);
+        assertEquals(actual.get(0).getName(), TEST_PRESENTATION1_NAME);
+        assertEquals(actual.get(1).getName(), TEST_PRESENTATION2_NAME);
+    }
+
+    @Test
+    public void getAllPublishedTest() {
+        List<Presentation> presentations = List.of(TEST_PRESENTATION1, TEST_PRESENTATION2);
+        when(presentationRepository.getAllByStatus(PresentationStatus.PUBLISHED)).thenReturn(presentations);
+
+        List<Presentation> actual = presentationService.getAllPublished();
 
         assertEquals(actual.size(), 2);
         assertEquals(actual.get(0).getName(), TEST_PRESENTATION1_NAME);
@@ -113,6 +125,7 @@ public class PresentationServiceTest {
 
     @Test
     public void publishByNameTest() {
+        TEST_PRESENTATION2.setStatus(PresentationStatus.CREATED);
         when(presentationRepository.getByName(TEST_PRESENTATION2_NAME)).thenReturn(TEST_PRESENTATION2);
 
         Presentation actual = presentationService.publishByName(TEST_PRESENTATION2_NAME);

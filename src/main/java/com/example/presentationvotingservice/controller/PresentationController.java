@@ -28,6 +28,13 @@ public class PresentationController {
                 .collect(Collectors.toList()));
     }
 
+    @GetMapping("/allPublished")
+    public ResponseEntity<List<PresentationResponse>> getAllPublished() {
+        return ResponseEntity.ok().body(presentationService.getAllPublished().stream()
+                .map(this::convertPresentationToDto)
+                .collect(Collectors.toList()));
+    }
+
     @GetMapping("/{id:[\\d]+}")
     public ResponseEntity<PresentationResponse> getById(@PathVariable(ID) long id) {
         return ResponseEntity.ok().body(convertPresentationToDto(presentationService.getById(id)));
