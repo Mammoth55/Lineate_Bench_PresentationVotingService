@@ -52,4 +52,15 @@ public class PresentationService {
                 .client(client)
                 .build());
     }
+
+    @Transactional
+    public Presentation publishByName(String name) {
+        Presentation presentation = presentationRepository.getByName(name);
+        if (presentation == null || !presentation.getStatus().equals(PresentationStatus.CREATED)) {
+            return null;
+        }
+        presentationRepository.setStatusById(presentation.getId(), PresentationStatus.PUBLISHED);
+        presentation.setStatus(PresentationStatus.PUBLISHED);
+        return presentation;
+    }
 }

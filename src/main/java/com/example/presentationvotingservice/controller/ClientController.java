@@ -34,7 +34,7 @@ public class ClientController {
     }
 
     @GetMapping("/filter")
-    public ResponseEntity<ClientResponse> getByLogin(@RequestParam(name = "login", required = false) String login) {
+    public ResponseEntity<ClientResponse> getByLogin(@RequestParam(name = "login") String login) {
         return ResponseEntity.ok().body(convertClientToDto(clientService.getByLogin(login)));
     }
 

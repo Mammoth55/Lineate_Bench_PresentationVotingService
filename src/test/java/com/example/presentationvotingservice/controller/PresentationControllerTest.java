@@ -51,7 +51,7 @@ public class PresentationControllerTest {
             .id(9L)
             .name(TEST_PRESENTATION2_NAME)
             .description(TEST_PRESENTATION2_NAME + " in action")
-            .status(PresentationStatus.CREATED)
+            .status(PresentationStatus.PUBLISHED)
             .creationTime(ZonedDateTime.now())
             .client(TEST_CLIENT)
             .build();
@@ -115,6 +115,17 @@ public class PresentationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", Matchers.equalTo(9)))
                 .andExpect(jsonPath("$.authorLogin", Matchers.equalTo(TEST_CLIENT_LOGIN)))
+                .andExpect(jsonPath("$.name", Matchers.equalTo(TEST_PRESENTATION2_NAME)));
+    }
+
+    @Test
+    public void publishByNameTest() throws Exception {
+        when(presentationService.publishByName(TEST_PRESENTATION2_NAME)).thenReturn(TEST_PRESENTATION2);
+
+        mockMvc.perform(get("/api/presentations/publish?name=" + TEST_PRESENTATION2_NAME))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", Matchers.equalTo(9)))
+                .andExpect(jsonPath("$.status", Matchers.equalTo(PresentationStatus.PUBLISHED.name())))
                 .andExpect(jsonPath("$.name", Matchers.equalTo(TEST_PRESENTATION2_NAME)));
     }
 }

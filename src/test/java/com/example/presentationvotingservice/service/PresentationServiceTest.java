@@ -18,6 +18,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -107,6 +108,17 @@ public class PresentationServiceTest {
 
         assertNotNull(actual);
         assertEquals(actual.getClient().getLogin(), TEST_PRESENTATION2.getClient().getLogin());
+        assertEquals(actual.getName(), TEST_PRESENTATION2_NAME);
+    }
+
+    @Test
+    public void publishByNameTest() {
+        when(presentationRepository.getByName(TEST_PRESENTATION2_NAME)).thenReturn(TEST_PRESENTATION2);
+
+        Presentation actual = presentationService.publishByName(TEST_PRESENTATION2_NAME);
+
+        assertEquals((long) actual.getId(), 9L);
+        assertEquals(actual.getStatus(), PresentationStatus.PUBLISHED);
         assertEquals(actual.getName(), TEST_PRESENTATION2_NAME);
     }
 }
