@@ -43,7 +43,7 @@ public class PresentationControllerTest {
             .id(8L)
             .name(TEST_PRESENTATION1_NAME)
             .description(TEST_PRESENTATION1_NAME + " in action")
-            .status(PresentationStatus.CREATED)
+            .status(PresentationStatus.PUBLISHED)
             .creationTime(ZonedDateTime.now())
             .client(TEST_CLIENT)
             .build();
@@ -75,6 +75,19 @@ public class PresentationControllerTest {
         when(presentationService.getAll()).thenReturn(presentations);
 
         mockMvc.perform(get("/api/presentations/"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", Matchers.hasSize(2)))
+                .andExpect(jsonPath("$[0].name", Matchers.equalTo(TEST_PRESENTATION1_NAME)))
+                .andExpect(jsonPath("$[1].name", Matchers.equalTo(TEST_PRESENTATION2_NAME)));
+    }
+
+    @Test
+    public void getAllPublishedTest() throws Exception {
+        List<Presentation> presentations = List.of(TEST_PRESENTATION1, TEST_PRESENTATION2);
+
+        when(presentationService.getAllPublished()).thenReturn(presentations);
+
+        mockMvc.perform(get("/api/presentations/allPublished/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", Matchers.hasSize(2)))
                 .andExpect(jsonPath("$[0].name", Matchers.equalTo(TEST_PRESENTATION1_NAME)))
@@ -128,4 +141,6 @@ public class PresentationControllerTest {
                 .andExpect(jsonPath("$.status", Matchers.equalTo(PresentationStatus.PUBLISHED.name())))
                 .andExpect(jsonPath("$.name", Matchers.equalTo(TEST_PRESENTATION2_NAME)));
     }
+
+
 }
