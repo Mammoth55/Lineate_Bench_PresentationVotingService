@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -133,6 +134,7 @@ public class PresentationControllerTest {
 
     @Test
     public void publishByNameTest() throws Exception {
+        TEST_PRESENTATION2.setStatus(PresentationStatus.PUBLISHED);
         when(presentationService.publishByName(TEST_PRESENTATION2_NAME)).thenReturn(TEST_PRESENTATION2);
 
         mockMvc.perform(get("/api/presentations/publish?name=" + TEST_PRESENTATION2_NAME))
@@ -142,5 +144,19 @@ public class PresentationControllerTest {
                 .andExpect(jsonPath("$.name", Matchers.equalTo(TEST_PRESENTATION2_NAME)));
     }
 
+    @Test
+    public void planningByNameTest() throws Exception {
+        TEST_PRESENTATION2.setStatus(PresentationStatus.PLANNED);
+        ZonedDateTime startTime = ZonedDateTime.of(2022, 5, 19, 15, 30, 0, 0, ZoneId.of("UTC"));
+        TEST_PRESENTATION2.setStartTime(startTime);
+        when(presentationService.planningByName(any(), any())).thenReturn(TEST_PRESENTATION2);
 
+        mockMvc.perform(get("/api/presentations/planning?name=" + TEST_PRESENTATION2_NAME
+                + "&startTime=" + startTime))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", Matchers.equalTo(9)))
+                .andExpect(jsonPath("$.startTime", Matchers.equalTo(startTime.toString())))
+                .andExpect(jsonPath("$.status", Matchers.equalTo(PresentationStatus.PLANNED.name())))
+                .andExpect(jsonPath("$.name", Matchers.equalTo(TEST_PRESENTATION2_NAME)));
+    }
 }
