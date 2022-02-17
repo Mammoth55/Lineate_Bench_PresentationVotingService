@@ -1,7 +1,6 @@
 package com.example.presentationvotingservice.service;
 
 import com.example.presentationvotingservice.dto.request.PresentationRequest;
-import com.example.presentationvotingservice.dto.response.PresentationResponse;
 import com.example.presentationvotingservice.entity.Client;
 import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.model.PresentationStatus;
@@ -10,6 +9,10 @@ import com.example.presentationvotingservice.repository.PresentationRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -64,8 +67,22 @@ public class PresentationService {
         if (presentation == null || !presentation.getStatus().equals(PresentationStatus.CREATED)) {
             return null;
         }
-        presentationRepository.setStatusById(presentation.getId(), PresentationStatus.PUBLISHED);
+        presentationRepository.updateById(presentation.getId(), PresentationStatus.PUBLISHED, null);
         presentation.setStatus(PresentationStatus.PUBLISHED);
+        return presentation;
+    }
+
+    @Transactional
+    public Presentation planningByName(String name, LocalDateTime startTime) {
+        Presentation presentation = presentationRepository.getByName(name);
+        if (presentation == null || !presentation.getStatus().equals(PresentationStatus.PUBLISHED)) {
+            return null;
+        }
+        ZonedDateTime zonedStartTime = startTime.atZone(ZoneId.of("UTC"));
+        presentationRepository.updateById(presentation.getId(), PresentationStatus.PLANNED,
+                zonedStartTime);
+        presentation.setStatus(PresentationStatus.PLANNED);
+        presentation.setStartTime(zonedStartTime);
         return presentation;
     }
 }

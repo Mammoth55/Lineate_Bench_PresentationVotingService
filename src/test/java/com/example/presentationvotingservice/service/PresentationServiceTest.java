@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -132,6 +133,21 @@ public class PresentationServiceTest {
 
         assertEquals((long) actual.getId(), 9L);
         assertEquals(actual.getStatus(), PresentationStatus.PUBLISHED);
+        assertEquals(actual.getName(), TEST_PRESENTATION2_NAME);
+    }
+
+    @Test
+    public void planningByNameTest() {
+        TEST_PRESENTATION2.setStatus(PresentationStatus.PUBLISHED);
+        ZonedDateTime startTime = ZonedDateTime.of(2022, 5, 19, 15, 30, 0, 0, ZoneId.of("UTC"));
+//        TEST_PRESENTATION2.setStartTime(startTime);
+        when(presentationRepository.getByName(TEST_PRESENTATION2_NAME)).thenReturn(TEST_PRESENTATION2);
+
+        Presentation actual = presentationService.planningByName(TEST_PRESENTATION2_NAME, startTime.toLocalDateTime());
+
+        assertEquals((long) actual.getId(), 9L);
+        assertEquals(actual.getStatus(), PresentationStatus.PLANNED);
+        assertEquals(actual.getStartTime(), startTime);
         assertEquals(actual.getName(), TEST_PRESENTATION2_NAME);
     }
 }

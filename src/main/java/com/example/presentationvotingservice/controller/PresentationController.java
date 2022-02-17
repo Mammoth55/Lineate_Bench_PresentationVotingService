@@ -4,9 +4,14 @@ import com.example.presentationvotingservice.dto.request.PresentationRequest;
 import com.example.presentationvotingservice.dto.response.PresentationResponse;
 import com.example.presentationvotingservice.entity.Presentation;
 import com.example.presentationvotingservice.service.PresentationService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,8 +60,15 @@ public class PresentationController {
         return ResponseEntity.ok().body(convertPresentationToDto(presentationService.publishByName(name)));
     }
 
+    @GetMapping("/planning")
+    public ResponseEntity<PresentationResponse> planningByName(
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "startTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime) {
+        return ResponseEntity.ok().body(convertPresentationToDto(presentationService.planningByName(name, startTime)));
+    }
+
     private PresentationResponse convertPresentationToDto(Presentation presentation) {
-        var startTime = presentation.getStartTime();
+        ZonedDateTime startTime = presentation.getStartTime();
         return PresentationResponse.builder()
                 .id(presentation.getId())
                 .name(presentation.getName())
