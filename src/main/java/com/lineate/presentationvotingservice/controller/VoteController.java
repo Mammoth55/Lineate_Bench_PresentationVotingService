@@ -5,6 +5,7 @@ import com.lineate.pojolib.dto.response.VoteResponse;
 import com.lineate.presentationvotingservice.service.VoteService;
 import com.lineate.presentationvotingservice.entity.Vote;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,7 @@ public class VoteController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasAuthority('read')")
     public ResponseEntity<List<VoteResponse>> getAll() {
         return ResponseEntity.ok().body(voteService.getAll().stream()
                 .map(this::convertVoteToDto)
@@ -34,11 +36,13 @@ public class VoteController {
     }
 
     @GetMapping("/{id:[\\d]+}")
+    @PreAuthorize("hasAuthority('read')")
     public ResponseEntity<VoteResponse> getById(@PathVariable(ID) long id) {
         return ResponseEntity.ok().body(convertVoteToDto(voteService.getById(id)));
     }
 
     @PostMapping("/")
+    @PreAuthorize("hasAuthority('write')")
     public ResponseEntity<VoteResponse> create(@RequestBody VoteRequest voteRequest) {
         return ResponseEntity.ok().body(convertVoteToDto(voteService.create(voteRequest)));
     }
