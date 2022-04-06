@@ -11,8 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -22,14 +21,14 @@ public class ClientServiceTest {
     final static String TEST_CLIENT1_LOGIN = "11111@gmail.com";
     final static String TEST_CLIENT2_LOGIN = "22222@gmail.com";
     final static Client TEST_CLIENT1 = Client.builder()
-            .id(5)
+            .id(5L)
             .firstName("111")
             .lastName("222")
             .login(TEST_CLIENT1_LOGIN)
             .password("321")
             .build();
     final static Client TEST_CLIENT2 = Client.builder()
-            .id(6)
+            .id(6L)
             .firstName("222")
             .lastName("111")
             .login(TEST_CLIENT2_LOGIN)
@@ -65,8 +64,8 @@ public class ClientServiceTest {
         Client actual = clientService.getById(6L);
 
         assertNotNull(actual);
-        assertEquals(actual.getId(), 6);
-        assertEquals(actual.getLogin(), TEST_CLIENT2_LOGIN);
+        assertEquals(6L, (long) actual.getId());
+        assertEquals(TEST_CLIENT2_LOGIN, actual.getLogin());
     }
 
     @Test
@@ -76,7 +75,7 @@ public class ClientServiceTest {
         Client actual = clientService.getByLogin(TEST_CLIENT2_LOGIN);
 
         assertNotNull(actual);
-        assertEquals(actual.getId(), 6);
+        assertEquals(6L, (long) actual.getId());
         assertEquals(actual.getLogin(), TEST_CLIENT2_LOGIN);
     }
 

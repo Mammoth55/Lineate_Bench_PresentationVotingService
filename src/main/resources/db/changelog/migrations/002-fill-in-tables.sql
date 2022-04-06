@@ -1,8 +1,8 @@
-INSERT INTO public.client (first_name, last_name, login) VALUES
-('John', 'Doe', 'jd@gmail.com'),
-('Mark', 'Full', 'mf@gmail.com'),
-('Alice', 'Cooper', 'ac@gmail.com'),
-('Rose', 'Doe', 'rd@gmail.com');
+INSERT INTO public.client (first_name, last_name, login, password, role) VALUES
+('John', 'Doe', 'admin@gmail.com', '$2a$12$KJ7UzxIRlt.dyJP9kllfo.z5gQwWYCxCEMzOzwZIRo.9NaNFw7zsO', 'ADMIN'),
+('Mark', 'Full', 'aaaaa@gmail.com', '$2a$12$SmBD2O2b6wKDbXwxvtfnIeSO4j54wqlofx/hy6HBqwxtyrZ5eWuF2', 'USER'),
+('Alice', 'Cooper', 'bbbbb@gmail.com', '$2a$12$SmBD2O2b6wKDbXwxvtfnIeSO4j54wqlofx/hy6HBqwxtyrZ5eWuF2', 'USER'),
+('Rose', 'Doe', 'ccccc@gmail.com', '$2a$12$SmBD2O2b6wKDbXwxvtfnIeSO4j54wqlofx/hy6HBqwxtyrZ5eWuF2', 'USER');
 COMMIT;
 
 INSERT INTO public.presentation (name, description, status, creation_time, start_time, client_id) VALUES

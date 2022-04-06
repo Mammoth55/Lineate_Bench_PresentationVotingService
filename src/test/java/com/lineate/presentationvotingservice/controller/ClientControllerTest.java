@@ -29,14 +29,14 @@ public class ClientControllerTest {
     final static String TEST_CLIENT1_LOGIN = "11111@gmail.com";
     final static String TEST_CLIENT2_LOGIN = "22222@gmail.com";
     final static Client CLIENT1 = Client.builder()
-            .id(5)
+            .id(5L)
             .firstName("111")
             .lastName("222")
             .login(TEST_CLIENT1_LOGIN)
             .password("321")
             .build();
     final static Client CLIENT2 = Client.builder()
-            .id(6)
+            .id(6L)
             .firstName("222")
             .lastName("111")
             .login(TEST_CLIENT2_LOGIN)

@@ -2,6 +2,8 @@ package com.lineate.presentationvotingservice.service;
 
 import com.lineate.pojolib.dto.request.ClientRequest;
 import com.lineate.presentationvotingservice.entity.Client;
+import com.lineate.presentationvotingservice.model.ClientStatus;
+import com.lineate.presentationvotingservice.model.Role;
 import com.lineate.presentationvotingservice.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +38,8 @@ public class ClientService {
                 .lastName(request.getLastName())
                 .login(request.getLogin())
                 .password(request.getPassword())
+                .role(Role.USER)
+                .status(ClientStatus.ACTIVE)
                 .build());
     }
 }

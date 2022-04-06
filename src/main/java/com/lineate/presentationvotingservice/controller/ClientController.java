@@ -54,6 +54,8 @@ public class ClientController {
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
                 .login(client.getLogin())
+                .role(client.getRole().name())
+                .status(client.getStatus().name())
                 .build();
     }
 }

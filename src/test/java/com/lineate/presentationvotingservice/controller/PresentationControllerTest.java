@@ -34,7 +34,7 @@ public class PresentationControllerTest {
     final static String TEST_PRESENTATION2_NAME = "Concurrency";
     final static String TEST_CLIENT_LOGIN = "11111@gmail.com";
     final static Client TEST_CLIENT = Client.builder()
-            .id(5)
+            .id(5L)
             .firstName("111")
             .lastName("222")
             .login(TEST_CLIENT_LOGIN)

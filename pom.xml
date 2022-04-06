@@ -16,6 +16,13 @@
 
     <properties>
         <java.version>11</java.version>
+        <pojo-lib.version>0.1-SNAPSHOT</pojo-lib.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <junit.version>4.13.2</junit.version>
+        <postgresql.version>42.3.2</postgresql.version>
+        <springdoc-openapi-ui.version>1.5.12</springdoc-openapi-ui.version>
+        <spring-boot-maven-plugin.version>2.5.6</spring-boot-maven-plugin.version>
+        <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
     </properties>
 
     <dependencies>
@@ -23,7 +30,7 @@
         <dependency>
             <groupId>com.lineate</groupId>
             <artifactId>pojo-lib</artifactId>
-            <version>0.1-SNAPSHOT</version>
+            <version>${pojo-lib.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,7 +51,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.3.2</version>
+            <version>${postgresql.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -63,27 +70,32 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.12</version>
+            <version>${springdoc-openapi-ui.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.5.6</version>
+            <version>${spring-boot-maven-plugin.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.2.4.Final</version>
+            <version>${hibernate-validator.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
         </dependency>
     </dependencies>
 

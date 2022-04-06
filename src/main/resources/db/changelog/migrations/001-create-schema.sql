@@ -1,14 +1,16 @@
-drop table if exists public.client cascade;
-drop table if exists public.presentation cascade;
-drop table if exists public.vote cascade;
+drop table if exists public.vote;
+drop table if exists public.presentation;
+drop table if exists public.client;
 
 CREATE TABLE IF NOT EXISTS public.client
 (
     id              BIGSERIAL PRIMARY KEY,
     first_name      VARCHAR(64) NOT NULL,
     last_name       VARCHAR(64),
-    login           VARCHAR(64) NOT NULL UNIQUE,
-    password        VARCHAR(64) NOT NULL default '123456'
+    login           VARCHAR(255) NOT NULL UNIQUE,
+    password        VARCHAR(255) NOT NULL default '123456',
+    role            VARCHAR(32) NOT NULL default 'USER',
+    status          VARCHAR(32) NOT NULL default 'ACTIVE'
 );
 
 CREATE TABLE IF NOT EXISTS public.presentation

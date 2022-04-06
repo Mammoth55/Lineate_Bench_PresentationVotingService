@@ -29,21 +29,21 @@ public class VoteServiceTest {
     final static String TEST_PRESENTATION_NAME = "Hibernate";
     final static String TEST_CLIENT_LOGIN = "11111@gmail.com";
     final static Client TEST_AUTHOR = Client.builder()
-            .id(3)
+            .id(3L)
             .firstName("111")
             .lastName("222")
             .login(TEST_CLIENT_LOGIN)
             .password("123")
             .build();
     final static Client TEST_CLIENT1 = Client.builder()
-            .id(3)
+            .id(3L)
             .firstName("333")
             .lastName("444")
             .login("0" + TEST_CLIENT_LOGIN)
             .password("321")
             .build();
     final static Client TEST_CLIENT2 = Client.builder()
-            .id(3)
+            .id(3L)
             .firstName("555")
             .lastName("666")
             .login("00" + TEST_CLIENT_LOGIN)
