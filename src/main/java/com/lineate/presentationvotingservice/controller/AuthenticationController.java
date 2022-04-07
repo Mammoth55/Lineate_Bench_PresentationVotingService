@@ -1,9 +1,8 @@
 package com.lineate.presentationvotingservice.controller;
 
-import com.lineate.presentationvotingservice.dto.AuthenticationRequestDto;
+import com.lineate.pojolib.dto.request.AuthenticationRequest;
 import com.lineate.presentationvotingservice.entity.Client;
 import com.lineate.presentationvotingservice.repository.ClientRepository;
-import com.lineate.presentationvotingservice.security.JwtAuthenticationException;
 import com.lineate.presentationvotingservice.security.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,11 +37,11 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDto authenticationRequestDto) {
+    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
         try {
-            String login = authenticationRequestDto.getLogin();
+            String login = authenticationRequest.getLogin();
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(login, authenticationRequestDto.getPassword()));
+                    new UsernamePasswordAuthenticationToken(login, authenticationRequest.getPassword()));
             Client client = clientRepository.getByLogin(login);
             if (client == null) {
                 throw new UsernameNotFoundException("Client doesn't exists !");
